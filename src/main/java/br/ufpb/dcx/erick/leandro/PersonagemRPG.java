@@ -1,9 +1,9 @@
 package br.ufpb.dcx.erick.leandro;
 
-import java.util.Objects;
-import java.util.Random;
+import java.io.Serializable;
+import java.util.*;
 
-public class PersonagemRPG {
+public class PersonagemRPG implements Serializable {
     private String nome;
     private int pontosDeVida;
     private int nivel;
@@ -13,6 +13,9 @@ public class PersonagemRPG {
     private int inteligencia;
     private int sabedoria;
     private int carisma;
+    private boolean nomeAtrAlterado;
+    private List<String> dadosJogados = new ArrayList<>();
+    private List<String> nomesDosAtr = new ArrayList<>();
 
     public PersonagemRPG(String nome, int pontosDeVida, int nivel, int forca, int destreza, int constituicao,
                          int inteligencia, int sabedoria, int carisma){
@@ -25,22 +28,42 @@ public class PersonagemRPG {
         this.inteligencia = inteligencia;
         this.sabedoria = sabedoria;
         this.carisma = carisma;
+        this.nomeAtrAlterado = false;
+        this.nomesDosAtr.add("Força"); this.nomesDosAtr.add("Destreza"); this.nomesDosAtr.add("Constituição");
+        this.nomesDosAtr.add("Inteligência"); this.nomesDosAtr.add("Sabedoria"); this.nomesDosAtr.add("Carisma");
 
     }
 
     public PersonagemRPG(){
-        this("Nome Indefinido", 0, 0,0, 0, 0, 0, 0,0 );
+        this("Nome Indefinido", 0, 0,0, 0, 0, 0, 0,0);
+        this.nomeAtrAlterado = false;
+    }
+
+    public void renomearAtrDoPersonagem(String primeiroAtr, String segundoAtr, String terceiroAtr,
+                                          String quartoAtr, String quintoAtr, String sextoAtr){
+        this.nomesDosAtr.set(0, primeiroAtr);
+        this.nomesDosAtr.set(1, segundoAtr);
+        this.nomesDosAtr.set(2, terceiroAtr);
+        this.nomesDosAtr.set(3, quartoAtr);
+        this.nomesDosAtr.set(4, quintoAtr);
+        this.nomesDosAtr.set(5, sextoAtr);
+        this.nomeAtrAlterado = true;
+
+
     }
 
     public String toString(){
-        return "O personagem " + this.nome + ";  Pontos de Vida: " + this.pontosDeVida + ";  Nível: " + this.nivel + ";  com os atributos: \n" +
-                "Força[" + this.forca + "]\n" +
-                "Destreza[" + this.destreza + "]\n" +
-                "Constiruição[" + this.constituicao + "]\n" +
-                "Inteligência[" + this.inteligencia + "]\n" +
-                "Sabedoria[" + this.sabedoria + "]\n" +
-                "Carisma[" + this.carisma + "]";
+
+            return "O personagem " + this.nome + ";  Pontos de Vida: " + this.pontosDeVida + ";  Nível: " + this.nivel + ";  com os atributos: \n" +
+                    this.nomesDosAtr.get(0) + "[" + this.forca + "]\n" +
+                    this.nomesDosAtr.get(1) + "[" + this.destreza + "]\n" +
+                    this.nomesDosAtr.get(2) + "[" + this.constituicao + "]\n" +
+                    this.nomesDosAtr.get(3) + "[" + this.inteligencia + "]\n" +
+                    this.nomesDosAtr.get(4) + "[" + this.sabedoria + "]\n" +
+                    this.nomesDosAtr.get(5) + "[" + this.carisma + "]";
+
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -55,15 +78,50 @@ public class PersonagemRPG {
         return Objects.hash(nome, nivel);
     }
 
-    public int rolarDado(int somarUmAtributo){
+    //Joga um dado e retorna seu valor somado a um atributo do personagem
+    public int rolarDado(int somarUmAtributo, int ladosDoDado){
         Random geradorAleatorio = new Random();
+        int valorDado = geradorAleatorio.nextInt(ladosDoDado) + 1;
 
-        int valorDado = geradorAleatorio.nextInt(21);
+        dadosJogados.add(Integer.toString(valorDado));
         return valorDado + somarUmAtributo;
     }
 
+    public int rolarDado(int somarUmAtributo){
+        Random geradorAleatorio = new Random();
+        int valorDado = geradorAleatorio.nextInt(20) + 1;
 
-    //GET's e SET's
+        dadosJogados.add(Integer.toString(valorDado));
+        return valorDado + somarUmAtributo;
+    }
+
+    //Joga um dado e retorna seu valor puro
+    public int rolarDado(){
+        Random geradorAleatorio = new Random();
+        int valorDado = geradorAleatorio.nextInt(20) + 1;
+
+        dadosJogados.add(Integer.toString(valorDado));
+        return valorDado;
+    }
+
+    public String exibirDadosJogadosDoPersonagem(){
+        String exibir = "{";
+
+        for(int i = 0; i < dadosJogados.size(); i++){
+            String dado = dadosJogados.get(i);
+            if(i == dadosJogados.size() - 1){
+                exibir += dado + "}";
+            }else{
+                exibir += dado + ", ";
+            }
+
+        }
+
+        return exibir;
+    }
+
+
+    //GET e SET
     public String getNome() {
         return nome;
     }
@@ -134,5 +192,17 @@ public class PersonagemRPG {
 
     public void setCarisma(int carisma) {
         this.carisma = carisma;
+    }
+
+    public List<String> getDadosJogados() {
+        return dadosJogados;
+    }
+
+    public boolean ehNomeAtrAlterado() {
+        return nomeAtrAlterado;
+    }
+
+    public void setNomeAtrAlterado(boolean nomeAtrAlterado) {
+        this.nomeAtrAlterado = nomeAtrAlterado;
     }
 }
