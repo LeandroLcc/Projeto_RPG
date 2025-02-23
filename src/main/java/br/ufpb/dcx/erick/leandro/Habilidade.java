@@ -9,7 +9,6 @@ public class Habilidade extends PersonagemRPG{
  private String nome;
  private String descricao;
  private int valor;
- //private Map<String, Habilidade> listaDeHabilidades = new HashMap<>();
 
  public Habilidade(String nome, String descricao, int valor){
      this.nome = nome;
@@ -17,6 +16,12 @@ public class Habilidade extends PersonagemRPG{
      this.valor = valor;
 
  }
+    @Override
+    public String toString(){
+     return  "Nome: " + this.nome +
+             "Descrição: " + this.descricao +
+             "Resultado: " + this.valor;
+    }
     //HashCode e Equals
     @Override
     public boolean equals(Object o) {
