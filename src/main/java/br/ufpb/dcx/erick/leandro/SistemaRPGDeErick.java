@@ -1,85 +1,81 @@
 package br.ufpb.dcx.erick.leandro;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SistemaRPGDeErick implements SistemaRPG{
-    private Map<String, PersonagemRPG> listaDePersonagens;
-    private Map<String, Habilidade> listaDeHabilidades;
+    private ArrayList<PersonagemRPG> listaDePersonagens;
+    private ArrayList<Habilidade> listaDeHabilidades;
 
     public SistemaRPGDeErick(){
-        this.listaDeHabilidades = new HashMap<>();
-        this.listaDePersonagens = new HashMap<>();
+        this.listaDeHabilidades = new ArrayList<>();
+        this.listaDePersonagens = new ArrayList<>();
     }
 
     public void cadastrarPersonagem(PersonagemRPG personagemRpg) throws PersonagemJaExisteException{
-        if(!this.listaDePersonagens.containsKey(personagemRpg.getNome())) {
-            this.listaDePersonagens.put(personagemRpg.getNome(), personagemRpg);
-        }else{
-            throw new PersonagemJaExisteException("Um personagem com esse nome já existe atualmente!");
+        for(PersonagemRPG p : this.listaDePersonagens){
+            if(p.equals(personagemRpg)){
+                throw new PersonagemJaExisteException("Esse personagem já existe atualmente!");
+            }
         }
-
+            this.listaDePersonagens.add(personagemRpg);
     }
 
     public void cadastrarHabilidade(Habilidade habilidade) throws HabilidadeJaExisteException{
-        for(Habilidade h : this.listaDeHabilidades.values()) {
+        for(Habilidade h : this.listaDeHabilidades){
             if(h.equals(habilidade)){
                 throw new HabilidadeJaExisteException("Essa habilidade já existe");
             }
         }
 
-        this.listaDeHabilidades.put(habilidade.getNome(), habilidade);
+        this.listaDeHabilidades.add(habilidade);
 
     }
     //Provavelmente vou retirar esse métdo pois já existe um na classe PersonagemRPG que tem a mesma função
     public String exibirDadosRoladosPeloPersonagem(String nomeDoPersonagem) throws PersonagemInexistenteException{
-        if(this.listaDePersonagens.containsKey(nomeDoPersonagem)) {
-            PersonagemRPG dadosRoladosDoPersonagem = this.listaDePersonagens.get(nomeDoPersonagem);
-            return dadosRoladosDoPersonagem.exibirDadosJogadosDoPersonagem();
-        }else{
-            throw new PersonagemInexistenteException("Esse personagem não existe!");
+        for(PersonagemRPG p : this.listaDePersonagens){
+            if(p.getNome().equalsIgnoreCase(nomeDoPersonagem)){
+                return p.exibirDadosJogados();
+            }
         }
+        throw new PersonagemInexistenteException("Esse personagem não existe!");
     }
 
-    public String exibirTodasAsHabilidadesPeloNome(){
-        String exibir = "{";
+    public List<String> exibirTodasAsHabilidadesPeloNome(){
+        List<String> exibir = new ArrayList<>();
 
-        for(Habilidade h : this.listaDeHabilidades.values()){
+        for(Habilidade h : this.listaDeHabilidades){
             String nomeHabilidade = h.getNome();
-            exibir += nomeHabilidade + ";";
+            exibir.add(nomeHabilidade);
         }
-        exibir += "}";
-
         return exibir;
     }
 
-    public String exibirTodosOsPersonagensPeloNome(){
-        String exibir = "{";
+    public List<String> exibirTodosOsPersonagensPeloNome(){
+        List<String> exibir = new ArrayList<>();
 
-        for(PersonagemRPG p : this.listaDePersonagens.values()){
+        for(PersonagemRPG p : this.listaDePersonagens){
             String nomePersonagem = p.getNome();
-            exibir += nomePersonagem + ";";
+            exibir.add(nomePersonagem);
         }
-        exibir += "}";
 
         return exibir;
     }
 
-    public PersonagemRPG pesquisarPersonagemPeloNome(String nomeDoPersonagem) throws PersonagemInexistenteException{
-        if(this.listaDePersonagens.containsKey(nomeDoPersonagem)){
-            PersonagemRPG personagemPesquisado = this.listaDePersonagens.get(nomeDoPersonagem);
-            return personagemPesquisado;
-        }else{
-            throw new PersonagemInexistenteException("Personagem não foi encontrado.");
+    public List<PersonagemRPG> pesquisarPersonagemPeloNome(String nomeDoPersonagem) throws PersonagemInexistenteException{
+        List<PersonagemRPG> listaDePersonagensEcontrados = new ArrayList<>();
+        for(PersonagemRPG p : this.listaDePersonagens){
+            if(p.getNome().equalsIgnoreCase(nomeDoPersonagem)){
+                listaDePersonagensEcontrados.add(p);
+            }
         }
+
+        throw new PersonagemInexistenteException("Personagem não foi encontrado.");
 
     }
 
     public List<Habilidade> pesquisarHabilidades(String nomeDaHabilidade) throws HabilidadeInexistenteException{
         List<Habilidade> listaDeHabilidadesEncontradas = new ArrayList<>();
-        for(Habilidade h : this.listaDeHabilidades.values()){
+        for(Habilidade h : this.listaDeHabilidades){
             if(h.getNome().equalsIgnoreCase(nomeDaHabilidade)){
                 listaDeHabilidadesEncontradas.add(h);
             }
@@ -88,12 +84,46 @@ public class SistemaRPGDeErick implements SistemaRPG{
         return listaDeHabilidadesEncontradas;
     }
 
-    public void alterarNomeDosAtributosDoPersonagem(String nomeDoPersonagem, String primeiroAtr, String segundoAtr, String terceiroAtr,
+    public void alterarNomeDosAtributosDoPersonagem(String nomeDoPersonagem, String nomeDoJogador, String primeiroAtr, String segundoAtr, String terceiroAtr,
                                                     String quartoAtr, String quintoAtr, String sextoAtr) throws PersonagemInexistenteException{
-        if(this.listaDePersonagens.containsKey(nomeDoPersonagem)){
-            this.listaDePersonagens.get(nomeDoPersonagem).renomearAtrDoPersonagem(primeiroAtr, segundoAtr, terceiroAtr, quartoAtr, quintoAtr, sextoAtr);
-        }else{
-            throw new PersonagemInexistenteException("Esse personagem não existe!");
+        for(PersonagemRPG p : this.listaDePersonagens){
+            if(p.getNome().equalsIgnoreCase(nomeDoPersonagem) && p.getNomeDoJogador().equalsIgnoreCase(nomeDoJogador)){
+                p.renomearAtrDoPersonagem(primeiroAtr, segundoAtr, terceiroAtr, quartoAtr, quintoAtr, sextoAtr);
+            }
+
         }
+
+        throw new PersonagemInexistenteException("Esse personagem não existe!");
+
+    }
+
+    public void removerHabilidade(Habilidade habilidade) throws HabilidadeInexistenteException{
+        boolean habExiste = false;
+        for(Habilidade h : this.listaDeHabilidades){
+            if(h.equals(habilidade)){
+                this.listaDeHabilidades.remove(h);
+                habExiste = true;
+            }
+        }
+
+        if(!habExiste){
+            throw new HabilidadeInexistenteException("Essa habilidade não existe");
+        }
+
+    }
+    public void removerPersonagem(PersonagemRPG personagem) throws PersonagemInexistenteException{
+        boolean persExiste = false;
+        for(PersonagemRPG p : this.listaDePersonagens){
+            if(p.equals(personagem)){
+                this.listaDeHabilidades.remove(p);
+                persExiste = true;
+            }
+        }
+        if(!persExiste){
+            throw new PersonagemInexistenteException("Esse personagem não existe");
+        }
+
+        //Gravador e Recuperador
+
     }
 }

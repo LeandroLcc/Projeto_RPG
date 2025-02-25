@@ -5,6 +5,8 @@ import java.util.*;
 
 public class PersonagemRPG implements Serializable {
     private String nome;
+    private String nomeDoJogador;
+    private String descricao;
     private int pontosDeVida;
     private int nivel;
     private int forca;
@@ -70,12 +72,12 @@ public class PersonagemRPG implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonagemRPG that = (PersonagemRPG) o;
-        return nivel == that.nivel && Objects.equals(nome, that.nome);
+        return Objects.equals(getNome(), that.getNome()) && Objects.equals(nomeDoJogador, that.nomeDoJogador) && Objects.equals(descricao, that.descricao);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, nivel);
+        return Objects.hash(getNome(), nomeDoJogador, descricao);
     }
 
     //Joga um dado e retorna seu valor somado a um atributo do personagem
@@ -104,7 +106,7 @@ public class PersonagemRPG implements Serializable {
         return valorDado;
     }
 
-    public String exibirDadosJogadosDoPersonagem(){
+    public String exibirDadosJogados(){
         String exibir = "{";
 
         for(int i = 0; i < dadosJogados.size(); i++){
@@ -205,4 +207,27 @@ public class PersonagemRPG implements Serializable {
     public void setNomeAtrAlterado(boolean nomeAtrAlterado) {
         this.nomeAtrAlterado = nomeAtrAlterado;
     }
+
+    public String getNomeDoJogador() {
+        return nomeDoJogador;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public List<String> getNomesDosAtr() {
+        return nomesDosAtr;
+    }
+
+    public void setNomesDosAtr(List<String> nomesDosAtr) {
+        this.nomesDosAtr = nomesDosAtr;
+    }
+
+    //Gravador e Recuperador
+
 }

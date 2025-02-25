@@ -14,11 +14,11 @@ public class TesteSistemaRPGDeErick {
         try {
             sistema.cadastrarPersonagem(p1);
             sistema.cadastrarPersonagem(p2);
-            System.out.println(sistema.exibirTodosOsPersonagensPeloNome());
+
             p1.rolarDado();
             p1.rolarDado(p1.getForca());
             System.out.println(sistema.exibirDadosRoladosPeloPersonagem(p1.getNome()));
-            System.out.println(p1.exibirDadosJogadosDoPersonagem());
+            System.out.println(p1.exibirDadosJogados());
         } catch (PersonagemJaExisteException | PersonagemInexistenteException e) {
             throw new RuntimeException(e);
         }

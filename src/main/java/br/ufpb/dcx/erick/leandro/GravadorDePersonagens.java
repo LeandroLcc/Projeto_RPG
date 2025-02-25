@@ -21,9 +21,9 @@ public class GravadorDePersonagens {
 
     }
 
-    public void gravaRoupas(Collection<PersonagemRPG> roupas) throws IOException {
+    public void gravaRoupas(Collection<PersonagemRPG> personagemRPG) throws IOException {
         ArrayList<PersonagemRPG> roupasArrayList = new ArrayList<>();
-        roupasArrayList.addAll(roupas);
+        roupasArrayList.addAll(personagemRPG);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivoRPG))) {
             out.writeObject(roupasArrayList);
         }
