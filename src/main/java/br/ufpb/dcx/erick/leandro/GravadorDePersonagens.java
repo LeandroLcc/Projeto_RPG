@@ -20,8 +20,8 @@ public class GravadorDePersonagens {
         }
 
     }
-
-    public void gravaRoupas(Collection<PersonagemRPG> personagemRPG) throws IOException {
+    //Preciso gravar as habilidades também, crio um novo métdo de gravação ou utilizo o mesmo
+    public void gravaPersonagens(Collection<PersonagemRPG> personagemRPG) throws IOException {
         ArrayList<PersonagemRPG> roupasArrayList = new ArrayList<>();
         roupasArrayList.addAll(personagemRPG);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivoRPG))) {
