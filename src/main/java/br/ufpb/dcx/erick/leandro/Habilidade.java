@@ -2,7 +2,7 @@ package br.ufpb.dcx.erick.leandro;
 
 import java.util.Objects;
 
-public class Habilidade extends PersonagemRPG{
+public class Habilidade{
 
  private String nome;
  private String descricao;
@@ -14,14 +14,13 @@ public class Habilidade extends PersonagemRPG{
      this.valor = valor;
 
  }
-    @Override
+
     public String toString(){
      return  "Nome: " + this.nome +
              "Descrição: " + this.descricao +
              "Resultado: " + this.valor;
     }
     //HashCode e Equals
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -36,14 +35,14 @@ public class Habilidade extends PersonagemRPG{
     }
 
     //Get's e Set's
-    @Override
-    public String getNomeDoPersonagem() {
+
+    public String getNome() {
         return nome;
     }
 
-    @Override
-    public void setNomeDoPersonagem(String nomeDoPersonagem) {
-        this.nome = nomeDoPersonagem;
+
+    public void setNomeDaHabilidade(String nomeDaHabilidade) {
+        this.nome = nomeDaHabilidade;
     }
 
     public String getDescricao() {
