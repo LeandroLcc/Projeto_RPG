@@ -19,6 +19,7 @@ public class PersonagemRPG implements Serializable {
     private List<String> dadosJogados = new ArrayList<>();
     private List<String> nomesDosAtr = new ArrayList<>();
 
+    //Adicionar o nomeDoJogador no construtor
     public PersonagemRPG(String nome, int pontosDeVida, int nivel, int forca, int destreza, int constituicao,
                          int inteligencia, int sabedoria, int carisma){
         this.nome = nome;
