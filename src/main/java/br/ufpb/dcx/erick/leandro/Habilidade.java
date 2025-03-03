@@ -1,7 +1,5 @@
 package br.ufpb.dcx.erick.leandro;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class Habilidade extends PersonagemRPG{
@@ -39,13 +37,13 @@ public class Habilidade extends PersonagemRPG{
 
     //Get's e Set's
     @Override
-    public String getNome() {
+    public String getNomeDoPersonagem() {
         return nome;
     }
 
     @Override
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeDoPersonagem(String nomeDoPersonagem) {
+        this.nome = nomeDoPersonagem;
     }
 
     public String getDescricao() {

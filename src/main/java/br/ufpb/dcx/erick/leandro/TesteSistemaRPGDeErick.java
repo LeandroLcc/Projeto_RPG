@@ -1,8 +1,5 @@
 package br.ufpb.dcx.erick.leandro;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 public class TesteSistemaRPGDeErick {
     public static void main(String [] args) {
         SistemaRPGDeErick sistema = new SistemaRPGDeErick();
@@ -14,11 +11,11 @@ public class TesteSistemaRPGDeErick {
         try {
             sistema.cadastrarPersonagem(p1);
             sistema.cadastrarPersonagem(p2);
-
+            System.out.println(sistema.exibirTodosOsPersonagensPeloNome());
             p1.rolarDado();
             p1.rolarDado(p1.getForca());
-            System.out.println(sistema.exibirDadosRoladosPeloPersonagem(p1.getNome()));
-            System.out.println(p1.exibirDadosJogados());
+            System.out.println(sistema.exibirDadosRoladosPeloPersonagem(p1.getNomeDoPersonagem()));
+            System.out.println(p1.exibirDadosJogadosDoPersonagem());
         } catch (PersonagemJaExisteException | PersonagemInexistenteException e) {
             throw new RuntimeException(e);
         }

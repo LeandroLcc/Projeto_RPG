@@ -42,7 +42,7 @@ public class PersonagemRPG implements Serializable {
     }
 
     public void renomearAtrDoPersonagem(String primeiroAtr, String segundoAtr, String terceiroAtr,
-                                          String quartoAtr, String quintoAtr, String sextoAtr){
+                                        String quartoAtr, String quintoAtr, String sextoAtr){
         this.nomesDosAtr.set(0, primeiroAtr);
         this.nomesDosAtr.set(1, segundoAtr);
         this.nomesDosAtr.set(2, terceiroAtr);
@@ -56,13 +56,13 @@ public class PersonagemRPG implements Serializable {
 
     public String toString(){
 
-            return "O personagem " + this.nome + ";  Pontos de Vida: " + this.pontosDeVida + ";  Nível: " + this.nivel + ";  com os atributos: \n" +
-                    this.nomesDosAtr.get(0) + "[" + this.forca + "]\n" +
-                    this.nomesDosAtr.get(1) + "[" + this.destreza + "]\n" +
-                    this.nomesDosAtr.get(2) + "[" + this.constituicao + "]\n" +
-                    this.nomesDosAtr.get(3) + "[" + this.inteligencia + "]\n" +
-                    this.nomesDosAtr.get(4) + "[" + this.sabedoria + "]\n" +
-                    this.nomesDosAtr.get(5) + "[" + this.carisma + "]";
+        return "O personagem " + this.nome + ";  Pontos de Vida: " + this.pontosDeVida + ";  Nível: " + this.nivel + ";  com os atributos: \n" +
+                this.nomesDosAtr.get(0) + "[" + this.forca + "]\n" +
+                this.nomesDosAtr.get(1) + "[" + this.destreza + "]\n" +
+                this.nomesDosAtr.get(2) + "[" + this.constituicao + "]\n" +
+                this.nomesDosAtr.get(3) + "[" + this.inteligencia + "]\n" +
+                this.nomesDosAtr.get(4) + "[" + this.sabedoria + "]\n" +
+                this.nomesDosAtr.get(5) + "[" + this.carisma + "]";
 
     }
 

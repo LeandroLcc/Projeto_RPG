@@ -11,7 +11,7 @@ public class GravadorDePersonagens {
         this.arquivoRPG = "RPG.dat";
     }
 
-    public Collection<PersonagemRPG> recuperaRPG() throws IOException {
+    public Collection<PersonagemRPG> recuperarPersonagem() throws IOException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(this.arquivoRPG))) {
             Collection<PersonagemRPG> personagensAchados = (ArrayList<PersonagemRPG>) in.readObject();
             return personagensAchados;
@@ -20,12 +20,12 @@ public class GravadorDePersonagens {
         }
 
     }
-    //Preciso gravar as habilidades também, crio um novo métdo de gravação ou utilizo o mesmo
-    public void gravaPersonagens(Collection<PersonagemRPG> personagemRPG) throws IOException {
-        ArrayList<PersonagemRPG> roupasArrayList = new ArrayList<>();
-        roupasArrayList.addAll(personagemRPG);
+
+    public void gravarPersonagem(Collection<PersonagemRPG> personagensLista) throws IOException {
+        ArrayList<PersonagemRPG> personagensArrayList = new ArrayList<>();
+        personagensArrayList.addAll(personagensLista);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivoRPG))) {
-            out.writeObject(roupasArrayList);
+            out.writeObject(personagensArrayList);
         }
     }
 }

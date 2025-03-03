@@ -1,14 +1,17 @@
 package br.ufpb.dcx.erick.leandro;
 
+import java.io.IOException;
 import java.util.*;
 
 public class SistemaRPGDeErick implements SistemaRPG{
     private ArrayList<PersonagemRPG> listaDePersonagens;
     private ArrayList<Habilidade> listaDeHabilidades;
+    private GravadorDePersonagens gravadorDePersonagens;
 
     public SistemaRPGDeErick(){
         this.listaDeHabilidades = new ArrayList<>();
         this.listaDePersonagens = new ArrayList<>();
+        this.gravadorDePersonagens = new GravadorDePersonagens();
     }
 
     public void cadastrarPersonagem(PersonagemRPG personagemRpg) throws PersonagemJaExisteException{
@@ -17,7 +20,7 @@ public class SistemaRPGDeErick implements SistemaRPG{
                 throw new PersonagemJaExisteException("Esse personagem já existe atualmente!");
             }
         }
-            this.listaDePersonagens.add(personagemRpg);
+        this.listaDePersonagens.add(personagemRpg);
     }
 
     public void cadastrarHabilidade(Habilidade habilidade) throws HabilidadeJaExisteException{
@@ -122,9 +125,18 @@ public class SistemaRPGDeErick implements SistemaRPG{
         if(!persExiste){
             throw new PersonagemInexistenteException("Esse personagem não existe");
         }
+    }
 
-        //Gravador e Recuperador
+    //Gravador e Recuperador
 
+    public void recuperarPersonagens() throws IOException, PersonagemJaExisteException{
+        Collection<PersonagemRPG> personagemAchados = this.gravadorDePersonagens.recuperarPersonagem();
+        for( PersonagemRPG r : personagemAchados){
+            this.cadastrarPersonagem(r);
+        }
+    }
 
+    public void salvarPersonagens() throws IOException{
+        this.gravadorDePersonagens.gravarPersonagem(this.listaDePersonagens);
     }
 }
