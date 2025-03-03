@@ -29,7 +29,6 @@ public class Habilidade{
         return Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao);
     }
 
-    @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), nome, descricao);
     }
