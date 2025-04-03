@@ -7,19 +7,17 @@ public class SistemaRPGDeErick implements SistemaRPG{
     private ArrayList<PersonagemRPG> listaDePersonagens;
     private ArrayList<Habilidade> listaDeHabilidades;
     private GravadorDePersonagens gravadorDePersonagens;
+    private GravadorDeHabilidades gravadorDeHabilidades;
 
     public SistemaRPGDeErick(){
         this.listaDeHabilidades = new ArrayList<>();
         this.listaDePersonagens = new ArrayList<>();
         this.gravadorDePersonagens = new GravadorDePersonagens();
+        this.gravadorDeHabilidades = new GravadorDeHabilidades();
+
     }
 
-    public void cadastrarPersonagem(PersonagemRPG personagemRpg) throws PersonagemJaExisteException{
-        for(PersonagemRPG p : this.listaDePersonagens){
-            if(p.equals(personagemRpg)){
-                throw new PersonagemJaExisteException("Esse personagem já existe atualmente!");
-            }
-        }
+    public void cadastrarPersonagem(PersonagemRPG personagemRpg){
         this.listaDePersonagens.add(personagemRpg);
     }
 
@@ -37,7 +35,8 @@ public class SistemaRPGDeErick implements SistemaRPG{
     public String exibirDadosRoladosPeloPersonagem(String nomeDoPersonagem) throws PersonagemInexistenteException{
         for(PersonagemRPG p : this.listaDePersonagens){
             if(p.getNome().equalsIgnoreCase(nomeDoPersonagem)){
-                return p.exibirDadosJogados();
+                return "Dados rolados pelo personagem " + nomeDoPersonagem + ": " +
+                        "\n" + p.exibirDadosJogados();
             }
         }
         throw new PersonagemInexistenteException("Esse personagem não existe!");
@@ -53,7 +52,7 @@ public class SistemaRPGDeErick implements SistemaRPG{
         return exibir;
     }
 
-    public List<String> exibirTodosOsPersonagensPeloNome(){
+    public List<String> exibirTodosOsNomesDosPersonagens(){
         List<String> exibir = new ArrayList<>();
 
         for(PersonagemRPG p : this.listaDePersonagens){
@@ -64,19 +63,13 @@ public class SistemaRPGDeErick implements SistemaRPG{
         return exibir;
     }
 
-    public List<PersonagemRPG> pesquisarPersonagemPeloNome(String nomeDoPersonagem) throws PersonagemInexistenteException{
-        List<PersonagemRPG> listaDePersonagensEcontrados = new ArrayList<>();
-        for(PersonagemRPG p : this.listaDePersonagens){
-            if(p.getNome().equalsIgnoreCase(nomeDoPersonagem)){
-                listaDePersonagensEcontrados.add(p);
-            }
-        }
+    public List<PersonagemRPG> pesquisarPersonagemPeloNome(String nomeDoPersonagem){
 
-        throw new PersonagemInexistenteException("Personagem não foi encontrado.");
+        return this.listaDePersonagens.stream().filter(pers -> pers.getNome().equalsIgnoreCase(nomeDoPersonagem)).toList();
 
     }
 
-    public List<Habilidade> pesquisarHabilidades(String nomeDaHabilidade) throws HabilidadeInexistenteException{
+    public List<Habilidade> pesquisarHabilidades(String nomeDaHabilidade){
         List<Habilidade> listaDeHabilidadesEncontradas = new ArrayList<>();
         for(Habilidade h : this.listaDeHabilidades){
             if(h.getNome().equalsIgnoreCase(nomeDaHabilidade)){
@@ -87,16 +80,19 @@ public class SistemaRPGDeErick implements SistemaRPG{
         return listaDeHabilidadesEncontradas;
     }
 
-    public void alterarNomeDosAtributosDoPersonagem(String nomeDoPersonagem, String nomeDoJogador, String primeiroAtr, String segundoAtr, String terceiroAtr,
+    public void alterarNomeDosAtributosDoPersonagem(PersonagemRPG personagem, String primeiroAtr, String segundoAtr, String terceiroAtr,
                                                     String quartoAtr, String quintoAtr, String sextoAtr) throws PersonagemInexistenteException{
+        boolean verificarSeExis = false;
         for(PersonagemRPG p : this.listaDePersonagens){
-            if(p.getNome().equalsIgnoreCase(nomeDoPersonagem) && p.getNomeDoJogador().equalsIgnoreCase(nomeDoJogador)){
+            if(p.equals(personagem)){
                 p.renomearAtrDoPersonagem(primeiroAtr, segundoAtr, terceiroAtr, quartoAtr, quintoAtr, sextoAtr);
+                verificarSeExis = true;
             }
 
         }
-
-        throw new PersonagemInexistenteException("Esse personagem não existe!");
+        if(!verificarSeExis) {
+            throw new PersonagemInexistenteException("Esse personagem não existe!");
+        }
 
     }
 
@@ -129,14 +125,19 @@ public class SistemaRPGDeErick implements SistemaRPG{
 
     //Gravador e Recuperador
 
-    public void recuperarPersonagens() throws IOException, PersonagemJaExisteException{
-        Collection<PersonagemRPG> personagemAchados = this.gravadorDePersonagens.recuperarPersonagem();
-        for( PersonagemRPG r : personagemAchados){
+    public void recuperar() throws IOException, PersonagemJaExisteException, HabilidadeJaExisteException{
+        Collection<PersonagemRPG> personagensAchados = this.gravadorDePersonagens.recuperarPersonagem();
+        Collection<Habilidade> habilidadesAchadas = this.gravadorDeHabilidades.recuperarHabilidade();
+        for( PersonagemRPG r : personagensAchados){
             this.cadastrarPersonagem(r);
+        }
+        for(Habilidade h : habilidadesAchadas){
+            this.cadastrarHabilidade(h);
         }
     }
 
-    public void salvarPersonagens() throws IOException{
+    public void salvar() throws IOException{
         this.gravadorDePersonagens.gravarPersonagem(this.listaDePersonagens);
+        this.gravadorDeHabilidades.gravarHabilidade(this.listaDeHabilidades);
     }
 }

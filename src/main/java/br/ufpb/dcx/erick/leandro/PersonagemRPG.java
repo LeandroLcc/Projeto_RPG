@@ -19,18 +19,18 @@ public class PersonagemRPG implements Serializable {
     private List<String> dadosJogados = new ArrayList<>();
     private List<String> nomesDosAtr = new ArrayList<>();
 
-    //Adicionar os novos atributos no construtor
-    public PersonagemRPG(String nome, int pontosDeVida, int nivel, int forca, int destreza, int constituicao,
-                         int inteligencia, int sabedoria, int carisma){
+    public PersonagemRPG(String nome, String nomeDoJogador,String descricao){
         this.nome = nome;
-        this.pontosDeVida = pontosDeVida;
-        this.nivel = nivel;
-        this.forca = forca;
-        this.destreza = destreza;
-        this.constituicao = constituicao;
-        this.inteligencia = inteligencia;
-        this.sabedoria = sabedoria;
-        this.carisma = carisma;
+        this.nomeDoJogador = nomeDoJogador;
+        this.descricao = descricao;
+        this.pontosDeVida = 0;
+        this.nivel = 0;
+        this.forca = 0;
+        this.destreza = 0;
+        this.constituicao = 0;
+        this.inteligencia = 0;
+        this.sabedoria = 0;
+        this.carisma = 0;
         this.nomeAtrAlterado = false;
         this.nomesDosAtr.add("Força"); this.nomesDosAtr.add("Destreza"); this.nomesDosAtr.add("Constituição");
         this.nomesDosAtr.add("Inteligência"); this.nomesDosAtr.add("Sabedoria"); this.nomesDosAtr.add("Carisma");
@@ -38,7 +38,7 @@ public class PersonagemRPG implements Serializable {
     }
 
     public PersonagemRPG(){
-        this("Nome Indefinido", 0, 0,0, 0, 0, 0, 0,0);
+        this("Nome Indefinido", "Jogador Indefinido", "Personagem da Classe assassino, aparência tal e tal");
         this.nomeAtrAlterado = false;
     }
 
@@ -57,7 +57,7 @@ public class PersonagemRPG implements Serializable {
 
     public String toString(){
 
-        return "O personagem " + this.nome + ";  Pontos de Vida: " + this.pontosDeVida + ";  Nível: " + this.nivel + ";  com os atributos: \n" +
+        return "Nome: " + this.nome + "     |     Pontos de Vida: " + this.pontosDeVida + "     |     Nível: " + this.nivel + "     |     Atributos: \n" +
                 this.nomesDosAtr.get(0) + "[" + this.forca + "]\n" +
                 this.nomesDosAtr.get(1) + "[" + this.destreza + "]\n" +
                 this.nomesDosAtr.get(2) + "[" + this.constituicao + "]\n" +
@@ -73,7 +73,7 @@ public class PersonagemRPG implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonagemRPG that = (PersonagemRPG) o;
-        return Objects.equals(getNome(), that.getNome()) && Objects.equals(nomeDoJogador, that.nomeDoJogador) && Objects.equals(descricao, that.descricao);
+        return Objects.equals(nome, that.nome) && Objects.equals(nomeDoJogador, that.nomeDoJogador) && Objects.equals(descricao, that.descricao);
     }
 
     @Override

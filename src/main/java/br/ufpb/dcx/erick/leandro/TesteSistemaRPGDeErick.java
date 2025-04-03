@@ -1,22 +1,33 @@
 package br.ufpb.dcx.erick.leandro;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class TesteSistemaRPGDeErick {
     public static void main(String [] args) {
         SistemaRPGDeErick sistema = new SistemaRPGDeErick();
 
-        PersonagemRPG p1 = new PersonagemRPG("Aa", 0, 0, 3, 0, 0, 0, 0, 0);
-        PersonagemRPG p2 = new PersonagemRPG("aA", 0, 0, 0, 0, 0, 0, 0, 0);
+        PersonagemRPG p1 = new PersonagemRPG("Aa", "E", "rapaz");
+        PersonagemRPG p2 = new PersonagemRPG("Aa", "A", "rapaz");
 
         //assertTrue(sistema.exibirT);
         try {
             sistema.cadastrarPersonagem(p1);
             sistema.cadastrarPersonagem(p2);
-            System.out.println(sistema.exibirTodosOsPersonagensPeloNome());
+            System.out.println(sistema.exibirTodosOsNomesDosPersonagens());
             p1.rolarDado();
             p1.rolarDado(p1.getForca());
-            System.out.println(sistema.exibirDadosRoladosPeloPersonagem(p1.getNomeDoPersonagem()));
-            System.out.println(p1.exibirDadosJogadosDoPersonagem());
-        } catch (PersonagemJaExisteException | PersonagemInexistenteException e) {
+            List<PersonagemRPG> personagensAchados = sistema.pesquisarPersonagemPeloNome("Aa");
+            System.out.println(p1.toString());
+            assertTrue( personagensAchados.size() == 2);
+            System.out.println(sistema.exibirDadosRoladosPeloPersonagem(p1.getNome()));
+            p1.setCarisma(3);
+            sistema.alterarNomeDosAtributosDoPersonagem(p1, "For", "Des","Cons","Int", "Sab", "Car");
+            System.out.println(p1.exibirDadosJogados());
+            System.out.println(p1.toString());
+
+        } catch ( PersonagemInexistenteException e) {
             throw new RuntimeException(e);
         }
     }

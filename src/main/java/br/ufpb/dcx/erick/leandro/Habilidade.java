@@ -1,8 +1,9 @@
 package br.ufpb.dcx.erick.leandro;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Habilidade{
+public class Habilidade implements Serializable{
 
  private String nome;
  private String descricao;
@@ -21,6 +22,7 @@ public class Habilidade{
              "Resultado: " + this.valor;
     }
     //HashCode e Equals
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -28,7 +30,7 @@ public class Habilidade{
         Habilidade that = (Habilidade) o;
         return Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao);
     }
-
+    @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), nome, descricao);
     }
