@@ -57,7 +57,8 @@ public class PersonagemRPG implements Serializable {
 
     public String toString(){
 
-        return "Nome: " + this.nome + "     |     Pontos de Vida: " + this.pontosDeVida + "     |     Nível: " + this.nivel + "     |     Atributos: \n" +
+        return "Jogador: " + this.getNomeDoJogador() + "\nNome: " + this.nome + "     |     Pontos de Vida: " + this.pontosDeVida + "     |     Nível: " + this.nivel + "     |     Atributos: \n" +
+                "Descrição: " + this.getDescricao() + "\n" +
                 this.nomesDosAtr.get(0) + "[" + this.forca + "]\n" +
                 this.nomesDosAtr.get(1) + "[" + this.destreza + "]\n" +
                 this.nomesDosAtr.get(2) + "[" + this.constituicao + "]\n" +
