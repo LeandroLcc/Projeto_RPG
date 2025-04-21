@@ -42,8 +42,8 @@ public class SistemaRPGDeErick implements SistemaRPG{
         throw new PersonagemInexistenteException("Esse personagem não existe!");
     }
 
-    public List<String> exibirTodasAsHabilidadesPeloNome(){
-        List<String> exibir = new ArrayList<>();
+    public ArrayList<String> exibirTodasAsHabilidadesPeloNome(){
+        ArrayList<String> exibir = new ArrayList<>();
 
         for(Habilidade h : this.listaDeHabilidades){
             String nomeHabilidade = h.getNome();
@@ -52,8 +52,8 @@ public class SistemaRPGDeErick implements SistemaRPG{
         return exibir;
     }
 
-    public List<String> exibirTodosOsNomesDosPersonagens(){
-        List<String> exibir = new ArrayList<>();
+    public ArrayList<String> exibirTodosOsNomesDosPersonagens(){
+        ArrayList<String> exibir = new ArrayList<>();
 
         for(PersonagemRPG p : this.listaDePersonagens){
             String nomePersonagem = p.getNome();
@@ -67,6 +67,11 @@ public class SistemaRPGDeErick implements SistemaRPG{
 
         return this.listaDePersonagens.stream().filter(pers -> pers.getNome().equalsIgnoreCase(nomeDoPersonagem)).toList();
 
+    }
+
+    @Override
+    public PersonagemRPG pesquisarPersonagemPeloIndice(int i) {
+        return this.listaDePersonagens.get(i);
     }
 
     public List<Habilidade> pesquisarHabilidades(String nomeDaHabilidade){

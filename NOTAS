@@ -1,0 +1,17 @@
+Coisas que ainda falta fazer:
+
+- refatoração;
+
+- substituir os corpos dos métodos utilizando lambda;
+
+- alguns métodos da interface não foram adicionados no GUI, ex:
+  - pesquisarPersonagemPeloNome; (adicionar um botão na aba de personagens para que seja possível pesquisar algum personagem)
+  - exibirDadosRoladosPeloPersonagem; (adicionar na aba do perfil do personagem, onde é possível alterar seus atributos, para que seja exibido os dados rolados)
+  - alterarNomeDosAtributosDoPersonagem; (adicionar na aba de perfil também, muda os nomes dos atributos exibidos, não tem tanta relevância)
+  e outros, remover, rolarDado, etc.
+  * NÃO É NECESSÁRIO ADICIONAR NENHUM RELACIONADO A HABILIDADE AINDA *
+  O FOCO É PERSONAGENS ATUALMENTE
+
+- adicionar persistência de dados;
+
+- fazer os testes de unidade pra ver se cada método está funcionando corretamente;

@@ -19,7 +19,9 @@ public class PersonagemRPG implements Serializable {
     private List<String> dadosJogados = new ArrayList<>();
     private List<String> nomesDosAtr = new ArrayList<>();
 
-    public PersonagemRPG(String nome, String nomeDoJogador,String descricao){
+
+
+    public PersonagemRPG(String nome, String nomeDoJogador, String descricao){
         this.nome = nome;
         this.nomeDoJogador = nomeDoJogador;
         this.descricao = descricao;
@@ -57,8 +59,7 @@ public class PersonagemRPG implements Serializable {
 
     public String toString(){
 
-        return "Jogador: " + this.getNomeDoJogador() + "\nNome: " + this.nome + "     |     Pontos de Vida: " + this.pontosDeVida + "     |     Nível: " + this.nivel + "     |     Atributos: \n" +
-                "Descrição: " + this.getDescricao() + "\n" +
+        return "Jogador: " + this.getNomeDoJogador() + "\nNome: " + this.nome + "     |     Pontos de Vida: " + this.pontosDeVida + "     |     Nível: " + this.nivel + "     |     Descrição: " + this.getDescricao() + "\n Atributos: \n" +
                 this.nomesDosAtr.get(0) + "[" + this.forca + "]\n" +
                 this.nomesDosAtr.get(1) + "[" + this.destreza + "]\n" +
                 this.nomesDosAtr.get(2) + "[" + this.constituicao + "]\n" +
@@ -212,6 +213,10 @@ public class PersonagemRPG implements Serializable {
 
     public String getNomeDoJogador() {
         return nomeDoJogador;
+    }
+
+    public void setNomeDoJogador(String nomeDoJogador) {
+        this.nomeDoJogador = nomeDoJogador;
     }
 
     public String getDescricao() {
